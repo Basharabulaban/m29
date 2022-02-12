@@ -16,7 +16,7 @@ class LoginComponent extends Component {
       username: "basharusr",
       password: "basharpw",
       hasLoginFailed: false,
-      showSucesfulMessage: true,
+      showSucesfulMessage: false,
     };
     this.loginClicked = this.loginClicked.bind(this);
 
@@ -51,7 +51,9 @@ class LoginComponent extends Component {
        
         
         <ShowLoginSucessMessage showSucesfulMessage={this.state.showSucesfulMessage} />
-        <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} />
+        {/* {this.state.showSucesfulMessage   &&  <div>Login Sucessful</div> } */}
+        {/* <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} /> */}
+        {this.state.hasLoginFailed     && <div>Invalid Credentials</div>}
 
         User Name:
         <input
@@ -72,13 +74,13 @@ class LoginComponent extends Component {
     );
   }
 }
-function ShowInvalidCredentials(props){
-if (props.hasLoginFailed) {
-   return <div>Invalid Credentials</div> 
-}
-return null
+// function ShowInvalidCredentials(props){
+// if (props.hasLoginFailed) {
+//    return <div>Invalid Credentials</div> 
+// }
+// return null
 
-}
+// }
 
 function ShowLoginSucessMessage(props){
     if (props.showSucesfulMessage){
