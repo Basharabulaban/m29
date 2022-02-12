@@ -1,22 +1,27 @@
 import react, { Component } from "react";
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 class TodoApp extends Component {
   render() {
     return (
-      <div className="" TodoApp>
-        
-        <LoginComponent />
-        <WelcomeComponent />
+      <div className="TodoApp">
+        <Router>
+          <Routes>
+            <Route path="/" element={<LoginComponent />} />
+            <Route path="/Login" element={<LoginComponent />} />
+            <Route path="/Welcome" element={<WelcomeComponent />} />
+          </Routes>
+        </Router>
+        {/* <LoginComponent />
+        <WelcomeComponent /> */}
       </div>
     );
   }
 }
 
-class WelcomeComponent extends Component{
-render (){
-    return <div>Welcome you</div>
-}
-
+class WelcomeComponent extends Component {
+  render() {
+    return <div>Welcome you</div>;
+  }
 }
 class LoginComponent extends Component {
   constructor(props) {
@@ -81,8 +86,6 @@ class LoginComponent extends Component {
     );
   }
 }
-
-
 
 function ShowLoginSucessMessage(props) {
   if (props.showSucesfulMessage) {
