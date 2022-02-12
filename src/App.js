@@ -5,14 +5,15 @@ import FirstComponent from "./componenets/learning-examples/FirstComponenet.jsx"
 import ThirdComponent from "./componenets/learning-examples/ThirdComponent.jsx"
 import SecoundComponent from "./componenets/learning-examples/SecoundComponent.jsx"
 import Counter from "./componenets/counter/Counter";
-
+import TodoApp from "./componenets/todo/ToDoApp";
 class App extends Component {
   render() {
     return (
       <div className="App">
         
-      <Counter />
-      
+      {/* <Counter /> */}
+      <TodoApp/>
+
       </div>
     );
   }

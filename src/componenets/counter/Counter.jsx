@@ -60,6 +60,7 @@ export default class Counter extends Component {
       </div>
     );
   }
+
   reset() {
     this.setState( { counter: 0 });
   }
@@ -84,46 +85,43 @@ class CounterButton extends Component {
   //state => counter 0
   constructor() {
     super();
-    this.state = {
-      counter: 0,
-    };
+    // this.state = {
+    //   counter: 0,
+    // };
 
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
-    this.reset = this.reset.bind(this);
+    // this.increment = this.increment.bind(this);
+    // this.decrement = this.decrement.bind(this);
+
   }
   render() {
     return (
       <div className="Counter">
-        <button onClick={this.increment}> + {this.props.by}</button>
+        <button onClick={() => this.props.incrementMethod(this.props.by)}> + {this.props.by}</button>
 
-        <button onClick={this.decrement}> - {this.props.by}</button>
-        <span className="count">{this.state.counter}</span>
+        <button onClick={() => this.props.decrementMethod(this.props.by)}> - {this.props.by}</button>
+        {/* <span className="count">{this.state.counter}</span> */}
       </div>
     );
   }
-  increment() {
-    console.log("increment from parent");
+  // increment() {
+  //   console.log("increment from parent");
 
-    this.setState((prevState) => {
-      return { counter: prevState.counter + this.props.by };
-    });
+  //   this.setState((prevState) => {
+  //     return { counter: prevState.counter + this.props.by };
+  //   });
 
-    this.props.incrementMethod(this.props.by);
-  }
+  //   this.props.incrementMethod(this.props.by);
+  // }
 
-  decrement() {
-    console.log("decrement from parent");
+  // decrement() {
+  //   console.log("decrement from parent");
 
-    this.setState((prevState) => {
-      return { counter: prevState.counter - this.props.by };
-    });
+  //   this.setState((prevState) => {
+  //     return { counter: prevState.counter - this.props.by };
+  //   });
 
-    this.props.decrementMethod(this.props.by);
-  }
-  reset() {
-    this.setState( { counter: 0 });
-  }
+  //   this.props.decrementMethod(this.props.by);
+  // }
 }
 
 CounterButton.defaultProps = {
