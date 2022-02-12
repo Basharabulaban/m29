@@ -20,6 +20,7 @@ export default class Counter extends Component {
         <CounterButton by={5} incrementMethod={this.increment}/>
         <CounterButton by={10} incrementMethod={this.increment}/>
         <CounterButton by={15} incrementMethod={this.increment} />
+        <CounterButton by={20} incrementMethod={this.increment} />
         <span className="count">{this.state.counter}</span>
       </div>
     );
