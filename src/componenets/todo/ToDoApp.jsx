@@ -4,10 +4,19 @@ class TodoApp extends Component {
   render() {
     return (
       <div className="" TodoApp>
+        
         <LoginComponent />
+        <WelcomeComponent />
       </div>
     );
   }
+}
+
+class WelcomeComponent extends Component{
+render (){
+    return <div>Welcome you</div>
+}
+
 }
 class LoginComponent extends Component {
   constructor(props) {
@@ -30,7 +39,6 @@ class LoginComponent extends Component {
     });
   }
   loginClicked() {
-    
     if (
       this.state.username === "basharusr" &&
       this.state.password === "basharpw"
@@ -48,13 +56,12 @@ class LoginComponent extends Component {
   render() {
     return (
       <div>
-       
-        
-        <ShowLoginSucessMessage showSucesfulMessage={this.state.showSucesfulMessage} />
+        <ShowLoginSucessMessage
+          showSucesfulMessage={this.state.showSucesfulMessage}
+        />
         {/* {this.state.showSucesfulMessage   &&  <div>Login Sucessful</div> } */}
         {/* <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} /> */}
-        {this.state.hasLoginFailed     && <div>Invalid Credentials</div>}
-
+        {this.state.hasLoginFailed && <div>Invalid Credentials</div>}
         User Name:
         <input
           type="text"
@@ -74,18 +81,21 @@ class LoginComponent extends Component {
     );
   }
 }
+
+
+
+function ShowLoginSucessMessage(props) {
+  if (props.showSucesfulMessage) {
+    return <div>Login Sucessful</div>;
+  }
+  return null;
+}
+
 // function ShowInvalidCredentials(props){
 // if (props.hasLoginFailed) {
-//    return <div>Invalid Credentials</div> 
+//    return <div>Invalid Credentials</div>
 // }
 // return null
 
 // }
-
-function ShowLoginSucessMessage(props){
-    if (props.showSucesfulMessage){
-        return <div>Login Sucessful</div>
-    }
-    return null
-}
 export default TodoApp;
