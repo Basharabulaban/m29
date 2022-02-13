@@ -11,6 +11,8 @@ import withNavigation from "./WithNavigation.jsx";
 import { useParams } from "react-router-dom";
 import HeaderComponenet from './HeaderComponenet';
 import FotterComponenet from './FotterComponenet';
+import LogoutComponenet from './LogoutComponenet';
+
 class TodoApp extends Component {
   render() {
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
@@ -29,6 +31,8 @@ class TodoApp extends Component {
                 element={<WelcomeComponentWithParams />}
               />
               <Route path="/Todos" element={<ListTodoCompnent />} />
+              <Route path="/Logout" element={<LogoutComponenet />} />
+              
               <Route path="/*" element={<ErrorComponenet />} />
           
           
