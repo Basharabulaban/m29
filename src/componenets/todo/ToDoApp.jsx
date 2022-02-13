@@ -1,5 +1,11 @@
 import react, { Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Switch,
+  Link,
+} from "react-router-dom";
 import withParams from "./withParams";
 import withNavigation from "./WithNavigation.jsx";
 import { useParams } from "react-router-dom";
@@ -11,16 +17,22 @@ class TodoApp extends Component {
     return (
       <div className="TodoApp">
         <Router>
+        <HeaderComponenet />
           <Routes>
-            <Route path="/" element={<LoginComponentWithNavigation />} />
-            <Route path="/login" element={<LoginComponentWithNavigation />} />
-            <Route
-              path="/welcome/:name"
-              element={<WelcomeComponentWithParams />}
-            />
-            <Route path="/Todos" element={<ListTodoCompnent />} />
-            <Route path="/*" element={<ErrorComponenet />} />
+         
+      
+              <Route path="/" element={<LoginComponentWithNavigation />} />
+              <Route path="/login" element={<LoginComponentWithNavigation />} />
+              <Route
+                path="/welcome/:name"
+                element={<WelcomeComponentWithParams />}
+              />
+              <Route path="/Todos" element={<ListTodoCompnent />} />
+              <Route path="/*" element={<ErrorComponenet />} />
+          
+          
           </Routes>
+            <FotterComponenet />
         </Router>
       </div>
     );
@@ -31,10 +43,25 @@ class ListTodoCompnent extends Component {
     super(props);
     this.state = {
       todos: [
-        { id: 1, description: "learn react" },
-        { id: 2, description: "learn Java" },
-        { id: 3, description: "learn Microservise" },
-        { id: 4, description: "learn OS" },
+        {
+          id: 1,
+          description: "learn react",
+          done: false,
+          targetDate: new Date(),
+        },
+        {
+          id: 2,
+          description: "learn Java",
+          done: false,
+          targetDate: new Date(),
+        },
+        {
+          id: 3,
+          description: "learn Microservise",
+          done: false,
+          targetDate: new Date(),
+        },
+        { id: 4, description: "learn OS", done: false, targetDate: new Date() },
       ],
     };
   }
@@ -48,6 +75,8 @@ class ListTodoCompnent extends Component {
             <tr>
               <th>Id</th>
               <th>Description</th>
+              <th>Target Date</th>
+              <th>Is Completd?</th>
             </tr>
           </thead>
           <tbody>
@@ -71,7 +100,9 @@ todos.map (todo=>todo.id)
             {this.state.todos.map((todo) => (
               <tr>
                 <td>{todo.id}</td>
+                <td>{todo.done.toString()}</td>
                 <td>{todo.description}</td>
+                <td>{todo.targetDate.toString()}</td>
               </tr>
             ))}
           </tbody>
@@ -83,7 +114,12 @@ todos.map (todo=>todo.id)
 
 class WelcomeComponent extends Component {
   render() {
-    return <div>Welcome you {this.props.params.name} </div>;
+    return (
+      <div>
+        Welcome you {this.props.params.name} . Tou can manage your Todos{" "}
+        <a href="/todos"> Here </a>{" "}
+      </div>
+    );
   }
 }
 
@@ -150,6 +186,25 @@ class LoginComponent extends Component {
           onChange={this.handleChanges}
         />
         <button onClick={this.loginClicked}>Login</button>
+      </div>
+    );
+  }
+}
+class HeaderComponenet extends Component {
+  render() {
+    return (
+      <div>
+       Header  <hr />
+      </div>
+    );
+  }
+}
+
+class FotterComponenet extends Component {
+  render() {
+    return (
+      <div>
+       Fotter   <hr />
       </div>
     );
   }
