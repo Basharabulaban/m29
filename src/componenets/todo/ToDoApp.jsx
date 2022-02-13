@@ -1,29 +1,84 @@
 import react, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import withParams from './withParams'
-import withNavigation from './WithNavigation.jsx'   
+import withParams from "./withParams";
+import withNavigation from "./WithNavigation.jsx";
 import { useParams } from "react-router-dom";
 
 class TodoApp extends Component {
-    render() {
-        const LoginComponentWithNavigation = withNavigation(LoginComponent);
-        const WelcomeComponentWithParams = withParams(WelcomeComponent);
-        return (
-            <div className="TodoApp">
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<LoginComponentWithNavigation />} />
-                        <Route path="/login" element={<LoginComponentWithNavigation />} />
-                        <Route path="/welcome/:name" element={<WelcomeComponentWithParams />} />
-                        <Route path="/*"  element={<ErrorComponenet />} />
- 
-        
+  render() {
+    const LoginComponentWithNavigation = withNavigation(LoginComponent);
+    const WelcomeComponentWithParams = withParams(WelcomeComponent);
+    return (
+      <div className="TodoApp">
+        <Router>
+          <Routes>
+            <Route path="/" element={<LoginComponentWithNavigation />} />
+            <Route path="/login" element={<LoginComponentWithNavigation />} />
+            <Route
+              path="/welcome/:name"
+              element={<WelcomeComponentWithParams />}
+            />
+            <Route path="/Todos" element={<ListTodoCompnent />} />
+            <Route path="/*" element={<ErrorComponenet />} />
+          </Routes>
+        </Router>
+      </div>
+    );
+  }
+}
+class ListTodoCompnent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: [
+        { id: 1, description: "learn react" },
+        { id: 2, description: "learn Java" },
+        { id: 3, description: "learn Microservise" },
+        { id: 4, description: "learn OS" },
+      ],
+    };
+  }
 
-                    </Routes>
-                </Router>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h1> List To Do </h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* we need to map each todo to its JSX 
+            
+      var todos=[
+        { id: 1, description: "learn react" },
+        { id: 2, description: "learn Java" },
+        { id: 3, description: "learn Microservise" },
+        { id: 4, description: "learn OS" }
+      ]
+
+console.log(todo)
+
+todos.forEach(todo=>console.log(todo.description))
+todos.map (todo=>todo.description)
+todos.map (todo=>todo.id)
+            
+            */}
+
+            {this.state.todos.map((todo) => (
+              <tr>
+                <td>{todo.id}</td>
+                <td>{todo.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 class WelcomeComponent extends Component {
@@ -32,8 +87,8 @@ class WelcomeComponent extends Component {
   }
 }
 
-function ErrorComponenet(){
-    return <div>An Error occured , contact supoport</div>
+function ErrorComponenet() {
+  return <div>An Error occured , contact supoport</div>;
 }
 class LoginComponent extends Component {
   constructor(props) {
@@ -61,11 +116,9 @@ class LoginComponent extends Component {
       this.state.password === "basharpw"
     ) {
       console.log("sucessfully");
-      this.props.navigate(`/welcome/${this.state.username}`)
-    //   this.setState({ showSucesfulMessage: true });
-    //   this.setState({ hasLoginFailed: false });
-
-
+      this.props.navigate(`/welcome/${this.state.username}`);
+      //   this.setState({ showSucesfulMessage: true });
+      //   this.setState({ hasLoginFailed: false });
     } else {
       console.log("failed");
       this.setState({ showSucesfulMessage: false });
