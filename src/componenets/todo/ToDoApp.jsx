@@ -1,27 +1,34 @@
 import react, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import withNavigation from './WithNavigation.jsx'   
+
 class TodoApp extends Component {
-  render() {
-    return (
-      <div className="TodoApp">
-        <Router>
-          <Routes>
-            <Route path="/" element={<LoginComponent />} />
-            <Route path="/Login" element={<LoginComponent />} />
-            <Route path="/Welcome" element={<WelcomeComponent />} />
-          </Routes>
-        </Router>
-        {/* <LoginComponent />
-        <WelcomeComponent /> */}
-      </div>
-    );
-  }
+    render() {
+        const LoginComponentWithNavigation = withNavigation(LoginComponent);
+        return (
+            <div className="TodoApp">
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<LoginComponentWithNavigation />} />
+                        <Route path="/login" element={<LoginComponentWithNavigation />} />
+                        <Route path="/welcome" element={<WelcomeComponent />} />
+                        <Route path="/*"  element={<ErrorComponenet />} />
+                    </Routes>
+                </Router>
+            </div>
+        )
+    }
 }
 
 class WelcomeComponent extends Component {
   render() {
     return <div>Welcome you</div>;
   }
+}
+
+function ErrorComponenet(){
+    return <div>An Error occured , contact supoport</div>
 }
 class LoginComponent extends Component {
   constructor(props) {
@@ -49,8 +56,11 @@ class LoginComponent extends Component {
       this.state.password === "basharpw"
     ) {
       console.log("sucessfully");
-      this.setState({ showSucesfulMessage: true });
-      this.setState({ hasLoginFailed: false });
+      this.props.navigate(`/welcome`)
+    //   this.setState({ showSucesfulMessage: true });
+    //   this.setState({ hasLoginFailed: false });
+
+
     } else {
       console.log("failed");
       this.setState({ showSucesfulMessage: false });
