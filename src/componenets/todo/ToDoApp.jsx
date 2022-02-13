@@ -9,7 +9,8 @@ import {
 import withParams from "./withParams";
 import withNavigation from "./WithNavigation.jsx";
 import { useParams } from "react-router-dom";
-
+import HeaderComponenet from './HeaderComponenet';
+import FotterComponenet from './FotterComponenet';
 class TodoApp extends Component {
   render() {
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
@@ -190,25 +191,9 @@ class LoginComponent extends Component {
     );
   }
 }
-class HeaderComponenet extends Component {
-  render() {
-    return (
-      <div>
-       Header  <hr />
-      </div>
-    );
-  }
-}
 
-class FotterComponenet extends Component {
-  render() {
-    return (
-      <div>
-       Fotter   <hr />
-      </div>
-    );
-  }
-}
+
+
 
 function ShowLoginSucessMessage(props) {
   if (props.showSucesfulMessage) {
