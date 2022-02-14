@@ -1,6 +1,18 @@
 import react, { Component } from "react";
 import { Link } from 'react-router-dom'
+import AuthenticationService from './AuthenticationService.js';
+
 export default class HeaderComponenet extends Component {
+
+  constructor(props) {
+    super(props);
+
+  //  this.Loggedout = AuthenticationService.Loggedout.bind(AuthenticationService);
+
+
+  }
+ 
+
     render() {
       return (
         <header>
@@ -12,7 +24,7 @@ export default class HeaderComponenet extends Component {
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                          <li><Link className="nav-link" to="/login">Login</Link></li>
-                         <li><Link className="nav-link" to="/logout" >Logout</Link></li>
+                         <li><Link className="nav-link" to="/logout"onClick={AuthenticationService.Logout}>Logout</Link></li>
                     </ul>
                 </nav>
             </header>

@@ -1,12 +1,20 @@
 class AuthenticationService {
 
+    
+
+
 registerSucessfulLogin(username,password){
     console.log(username);
-sessionStorage.setItem('Authenticated-User',username);
+sessionStorage.setItem('authenticatedUser',username);
 
     
 }
 
+Loggedout() {
+
+    sessionStorage.removeItem('authenticatedUser');
+    console.log("LOgged out");
+  }
 }
 
 export default new AuthenticationService(); // export the instanse
