@@ -17,14 +17,21 @@ import WelcomeComponent from './WelcomeComponent';
 import ListTodoCompnent from './ListTodoCompnent';
 
 
+
 class TodoApp extends Component {
   render() {
+
+  
+
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
     const WelcomeComponentWithParams = withParams(WelcomeComponent);
+
+    const HeaderComponentWithNavigation = withNavigation(HeaderComponenet);
+
     return (
       <div className="TodoApp">
         <Router>
-        <HeaderComponenet />
+        <HeaderComponentWithNavigation />
           <Routes>
          
       

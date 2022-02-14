@@ -61,14 +61,15 @@ export default class ListTodoCompnent extends Component {
               
               */}
   
-              {this.state.todos.map((todo) => (
+              {this.state.todos.map(todo => 
                 <tr>
                   <td>{todo.id}</td>
                   <td>{todo.done.toString()}</td>
                   <td>{todo.description}</td>
                   <td>{todo.targetDate.toString()}</td>
                 </tr>
-              ))}
+              )}
+
             </tbody>
           </table>
         </div>
