@@ -5,7 +5,7 @@ export default class HeaderComponenet extends Component {
       return (
         <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a href="http://www.google.com" className="navbar-brand">in28Minutes</a></div>
+                    <div><a href="http://www.google.com" className="navbar-brand">Google</a></div>
                     <ul className="navbar-nav">
                          <li><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>
                        <li><Link className="nav-link" to="/todos">Todos</Link></li>
