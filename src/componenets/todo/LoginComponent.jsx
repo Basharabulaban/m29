@@ -1,4 +1,5 @@
 import react, { Component } from "react";
+import AuthenticationService from './AuthenticationService.js';
 export default class LoginComponent extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,9 @@ export default class LoginComponent extends Component {
       this.state.password === "basharpw"
     ) {
       console.log("sucessfully");
+      AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password);
       this.props.navigate(`/welcome/${this.state.username}`);
+
       //   this.setState({ showSucesfulMessage: true });
       //   this.setState({ hasLoginFailed: false });
     } else {
