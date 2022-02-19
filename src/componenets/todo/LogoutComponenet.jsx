@@ -1,4 +1,5 @@
 import react, { Component } from "react";
+
 export default  class LogoutComponenet extends Component {
     render() {
       return (
