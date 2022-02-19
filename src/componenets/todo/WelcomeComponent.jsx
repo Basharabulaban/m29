@@ -1,13 +1,20 @@
 import react, { Component } from "react";
 import HelloWorldService from "../../api/todo/HelloWorldService.js";
+
 export default class WelcomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       WelcomeMessage: "",
+      WelcomebeenMessage:"",
+      WelcomevariableMessage:"",
     };
     this.handleSucessResponse = this.handleSucessResponse.bind(this);
     this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
+    this.handlebeenSucessResponse=this.handlebeenSucessResponse.bind(this)
+    this.handlehelloworldpathvariableSucessResponse=this.handlehelloworldpathvariableSucessResponse.bind(this)
+
+    
   }
   render() {
     return (
@@ -29,6 +36,8 @@ export default class WelcomeComponent extends Component {
         </div>
 
         <div className="container">{this.state.WelcomeMessage}</div>
+        <div className="container">{this.state.WelcomebeenMessage}</div>
+        <div className="container">{this.state.WelcomevariableMessage}</div>
       </div>
     );
   }
@@ -38,11 +47,31 @@ export default class WelcomeComponent extends Component {
       this.handleSucessResponse(response);
       console.log(response);
     });
+    HelloWorldService.executeHelloWorldbeanService().then((response) => {
+      this.handlebeenSucessResponse(response);
+      console.log(response);
+    });
+    HelloWorldService.executehelloworldpathvariable(this.props.params.name).then((response) => {
+      this.handlehelloworldpathvariableSucessResponse(response);
+      console.log(response);
+    });
 
+
+    
     //  .catch()
   }
 
   handleSucessResponse(response) {
     this.setState({ WelcomeMessage: response.data });
+
   }
+
+  handlebeenSucessResponse(response){
+    this.setState({ WelcomebeenMessage:response.data.message});
+  }
+
+  handlehelloworldpathvariableSucessResponse(response){
+    this.setState({ WelcomevariableMessage:response.data.message});
+  }
+  
 }
