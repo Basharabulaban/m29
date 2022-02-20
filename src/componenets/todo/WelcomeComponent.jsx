@@ -6,15 +6,16 @@ export default class WelcomeComponent extends Component {
     super(props);
     this.state = {
       WelcomeMessage: "",
-      WelcomebeenMessage:"",
-      WelcomevariableMessage:"",
+      WelcomebeenMessage: "",
+      WelcomevariableMessage: "",
     };
     this.handleSucessResponse = this.handleSucessResponse.bind(this);
-    this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
-    this.handlebeenSucessResponse=this.handlebeenSucessResponse.bind(this)
-    this.handlehelloworldpathvariableSucessResponse=this.handlehelloworldpathvariableSucessResponse.bind(this)
+    this.handleError = this.handleError.bind(this);
 
-    
+    this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
+    this.handlebeenSucessResponse = this.handlebeenSucessResponse.bind(this);
+    this.handlehelloworldpathvariableSucessResponse =
+      this.handlehelloworldpathvariableSucessResponse.bind(this);
   }
   render() {
     return (
@@ -51,27 +52,25 @@ export default class WelcomeComponent extends Component {
       this.handlebeenSucessResponse(response);
       console.log(response);
     });
-    HelloWorldService.executehelloworldpathvariable(this.props.params.name).then((response) => {
-      this.handlehelloworldpathvariableSucessResponse(response);
-      console.log(response);
-    });
-
-
-    
-    //  .catch()
+    HelloWorldService.executehelloworldpathvariable(this.props.params.name)
+    .then(response => {this.handlehelloworldpathvariableSucessResponse(response); console.log(response);})
+    .catch (error => this.handleError(error))
+      
   }
 
   handleSucessResponse(response) {
     this.setState({ WelcomeMessage: response.data });
-
+  }
+  handleError(error) {
+    console.log(error.response);
+     this.setState({ WelcomevariableMessage: error.response.data.message });
   }
 
-  handlebeenSucessResponse(response){
-    this.setState({ WelcomebeenMessage:response.data.message});
+  handlebeenSucessResponse(response) {
+    this.setState({ WelcomebeenMessage: response.data.message });
   }
 
-  handlehelloworldpathvariableSucessResponse(response){
-    this.setState({ WelcomevariableMessage:response.data.message});
+  handlehelloworldpathvariableSucessResponse(response) {
+    this.setState({ WelcomevariableMessage: response.data.message });
   }
-  
 }
