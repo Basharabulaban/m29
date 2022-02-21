@@ -3,11 +3,13 @@ import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
 
 export default class ListTodoCompnent extends Component {
-  constructor(props) {
+  constructor(props) {  // life cyle method
+    console.log("constructor")
     // initialize commponenet
     super(props);
     this.state = {
       todos: [
+
         // {
         //   id: 1,
         //   description: "learn react",
@@ -31,18 +33,19 @@ export default class ListTodoCompnent extends Component {
     };
   }
   componentDidMount() {
+    console.log("componentDidMount")
     // once the data is apear
     TodoDataService.RetrieveAllTodos(
       AuthenticationService.getLoggedInUsersName()
     ).then((response) => {
       this.handleSucessResponse(response);
       // this.setState({ todos: response.data });
-      console.log(response);
+    ///////////  console.log(response);
     });
     // .catch (error => this.handleError(error))
   }
   handleError(error) {
-    console.log(error.response);
+  //////////////  console.log(error.response);
     this.setState({ todos: error.response.data.message });
   }
 
@@ -52,6 +55,7 @@ export default class ListTodoCompnent extends Component {
 
   //loaded for the first time and show on the brouser
   render() {
+    console.log("render")
     // whenver state has changes // render
     return (
       <div>
