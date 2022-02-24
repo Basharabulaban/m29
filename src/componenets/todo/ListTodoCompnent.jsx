@@ -5,44 +5,18 @@ import axios from "axios";
 export default class ListTodoCompnent extends Component {
   constructor(props) {
     // life cyle method
-    console.log("constructor");
+    console.log("constructor")
     // initialize commponenet
-    super(props);
-    this.deleteTodo = this.deleteTodo.bind(this);
-
+    super(props)
     this.state = {
-      todos: [
-        // {
-        //   id: 1,
-        //   description: "learn react",
-        //   done: false,
-        //   targetDate: new Date(),
-        // },
-        // {
-        //   id: 2,
-        //   description: "learn Java",
-        //   done: false,
-        //   targetDate: new Date(),
-        // },
-        // {
-        //   id: 3,
-        //   description: "learn Microservise",
-        //   done: false,
-        //   targetDate: new Date(),
-        // },
-        // { id: 4, description: "learn OS", done: false, targetDate: new Date() },
-      ],
+      todos: [],
+      message : null
     };
+    this.deleteTodo = this.deleteTodo.bind(this)
+
+
   }
 
-  deleteTodo(username, id) {
-    // console.log("delete");
-    // console.log(username)
-    // console.log(id)
-    // return axios.delete(`http://localhost:8083/${username}/todos/${id}`);
-TodoDataService.DeleteTodoService(username,id);
-//   DeleteTodoService(username, id)
-  }
   shouldComponentUpdate(nextProps, NextState) {
     console.log("shouldComponentUpdate");
     console.log(nextProps);
@@ -68,6 +42,20 @@ TodoDataService.DeleteTodoService(username,id);
 
     // .catch (error => this.handleError(error))
   }
+
+  deleteTodo(username, id) {
+    console.log(username + " " + id);
+   // let username = AuthenticationService.getLoggedInUsersName();
+    console.log("delete");
+    console.log(username + " " + id);
+
+    // return axios.delete(`http://localhost:8083/${username}/todos/${id}`);
+    TodoDataService.DeleteTodoService(username, id).then((response) => {
+      this.setState ({message: `Delete of Todo  ${id} is sucessful`}) ;
+    });
+
+    //   DeleteTodoService(username, id)
+  }
   handleError(error) {
     //////////////  console.log(error.response);
     this.setState({ todos: error.response.data.message });
@@ -85,6 +73,7 @@ TodoDataService.DeleteTodoService(username,id);
     return (
       <div>
         <h1> List To Do </h1>
+        <div className="alert alert-success">{this.state.message}</div>
         <div className="container">
           <table>
             <thead>
@@ -124,13 +113,10 @@ TodoDataService.DeleteTodoService(username,id);
                   <td>
                     <button
                       className="btn btn-warning"
-                      onClick={()=> this.deleteTodo(todo.username ,todo.id)}
+                      onClick={() => this.deleteTodo(todo.username, todo.id)}
                     >
                       Delete
-
                     </button>
-
-
                   </td>
                 </tr>
               ))}
