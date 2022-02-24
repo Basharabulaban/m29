@@ -1,13 +1,15 @@
 import react, { Component } from "react";
 import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
-
+import axios from "axios";
 export default class ListTodoCompnent extends Component {
   constructor(props) {
     // life cyle method
     console.log("constructor");
     // initialize commponenet
     super(props);
+    this.deleteTodo = this.deleteTodo.bind(this);
+
     this.state = {
       todos: [
         // {
@@ -32,26 +34,32 @@ export default class ListTodoCompnent extends Component {
       ],
     };
   }
-shouldComponentUpdate(nextProps,NextState){
 
-  console.log("shouldComponentUpdate");
-  console.log(nextProps);
-  console.log(NextState);
-return true  // if it is false in this case , componenet list of data will not be return because the componenet wiull npot be update
-//  console.log(this.state);
-}
-  componentWillUnmount(){
+  deleteTodo(username, id) {
+    // console.log("delete");
+    // console.log(username)
+    // console.log(id)
+    // return axios.delete(`http://localhost:8083/${username}/todos/${id}`);
+TodoDataService.DeleteTodoService(username,id);
+//   DeleteTodoService(username, id)
+  }
+  shouldComponentUpdate(nextProps, NextState) {
+    console.log("shouldComponentUpdate");
+    console.log(nextProps);
+    console.log(NextState);
+    return true; // if it is false in this case , componenet list of data will not be return because the componenet wiull npot be update
+    //  console.log(this.state);
+  }
+  componentWillUnmount() {
     console.log("componentWillUnmount");
-    console.log(this.state); 
+    console.log(this.state);
   }
   componentDidMount() {
     console.log("componentDidMount");
-    let username = AuthenticationService.getLoggedInUsersName()
-    console.log(username)
+    let username = AuthenticationService.getLoggedInUsersName();
+    console.log(username);
     // once the data is apear
-    TodoDataService.RetrieveAllTodos(
-      username
-    ).then((response) => {
+    TodoDataService.RetrieveAllTodos(username).then((response) => {
       this.setState({ todos: response.data });
     });
     console.log(this.state); ////////////////// bring empty use thread wait in java
@@ -85,6 +93,7 @@ return true  // if it is false in this case , componenet list of data will not b
                 <th>Description</th>
                 <th>Target Date</th>
                 <th>Is Completd?</th>
+                <th>Delete?</th>
               </tr>
             </thead>
             <tbody>
@@ -108,9 +117,21 @@ return true  // if it is false in this case , componenet list of data will not b
               {this.state.todos.map((todo) => (
                 <tr>
                   <td>{todo.id}</td>
-                  <td>{todo.done.toString()}</td>
+
                   <td>{todo.description}</td>
                   <td>{todo.targetDate.toString()}</td>
+                  <td>{todo.done.toString()}</td>
+                  <td>
+                    <button
+                      className="btn btn-warning"
+                      onClick={()=> this.deleteTodo(todo.username ,todo.id)}
+                    >
+                      Delete
+
+                    </button>
+
+
+                  </td>
                 </tr>
               ))}
             </tbody>
