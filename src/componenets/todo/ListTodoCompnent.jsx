@@ -3,13 +3,13 @@ import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
 
 export default class ListTodoCompnent extends Component {
-  constructor(props) {  // life cyle method
-    console.log("constructor")
+  constructor(props) {
+    // life cyle method
+    console.log("constructor");
     // initialize commponenet
     super(props);
     this.state = {
       todos: [
-
         // {
         //   id: 1,
         //   description: "learn react",
@@ -32,20 +32,36 @@ export default class ListTodoCompnent extends Component {
       ],
     };
   }
+shouldComponentUpdate(nextProps,NextState){
+
+  console.log("shouldComponentUpdate");
+  console.log(nextProps);
+  console.log(NextState);
+return true  // if it is false in this case , componenet list of data will not be return because the componenet wiull npot be update
+//  console.log(this.state);
+}
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+    console.log(this.state); 
+  }
   componentDidMount() {
-    console.log("componentDidMount")
+    console.log("componentDidMount");
+    let username = AuthenticationService.getLoggedInUsersName()
+    console.log(username)
     // once the data is apear
     TodoDataService.RetrieveAllTodos(
-      AuthenticationService.getLoggedInUsersName()
+      username
     ).then((response) => {
-      this.handleSucessResponse(response);
-      // this.setState({ todos: response.data });
-    ///////////  console.log(response);
+      this.setState({ todos: response.data });
     });
+    console.log(this.state); ////////////////// bring empty use thread wait in java
+    // this.setState({ todos: response.data });
+    ///////////  console.log(response);
+
     // .catch (error => this.handleError(error))
   }
   handleError(error) {
-  //////////////  console.log(error.response);
+    //////////////  console.log(error.response);
     this.setState({ todos: error.response.data.message });
   }
 
@@ -55,7 +71,8 @@ export default class ListTodoCompnent extends Component {
 
   //loaded for the first time and show on the brouser
   render() {
-    console.log("render")
+    console.log("render");
+    console.log(this.state); ////////////////// bring empty use thread wait in java
     // whenver state has changes // render
     return (
       <div>
@@ -101,5 +118,6 @@ export default class ListTodoCompnent extends Component {
         </div>
       </div>
     );
+    console.log(this.state); ////////////////// bring empty use thread wait in java
   }
 }
