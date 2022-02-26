@@ -27,7 +27,8 @@ export default class LoginComponent extends Component {
     ) {
       console.log("sucessfully");
       AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password);
-      this.props.navigate(`/welcome/${this.state.username}`);
+      
+     this.props.navigate(`/welcome/${this.state.username}`);
 
       //   this.setState({ showSucesfulMessage: true });
       //   this.setState({ hasLoginFailed: false });

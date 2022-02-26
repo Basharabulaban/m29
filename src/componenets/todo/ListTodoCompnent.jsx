@@ -1,20 +1,21 @@
 import react, { Component } from "react";
 import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
-import axios from "axios";
+
+import { Navigate } from 'react-router-dom'
+
 export default class ListTodoCompnent extends Component {
   constructor(props) {
-    // life cyle method
-    console.log("constructor")
-    // initialize commponenet
-    super(props)
+
+    super(props);
     this.state = {
+      //id: this.props.params.id,
       todos: [],
-      message : null
+      message: null,
     };
-    this.deleteTodo = this.deleteTodo.bind(this)
-
-
+    
+    this.deleteTodo = this.deleteTodo.bind(this);
+    this.updateTodo = this.updateTodo.bind(this);
   }
 
   shouldComponentUpdate(nextProps, NextState) {
@@ -42,19 +43,39 @@ export default class ListTodoCompnent extends Component {
 
     // .catch (error => this.handleError(error))
   }
+  refreshmentTodo() {
+    console.log("refreshmentTodo");
+    let username = AuthenticationService.getLoggedInUsersName();
+    console.log(username);
+    // once the data is apear
+    TodoDataService.RetrieveAllTodos(username).then((response) => {
+      this.setState({ todos: response.data });
+    });
+    console.log(this.state); ////////////////// bring empty use thread wait in java
+    // this.setState({ todos: response.data });
+    ///////////  console.log(response);
+
+    // .catch (error => this.handleError(error))
+  }
 
   deleteTodo(username, id) {
     console.log(username + " " + id);
-   // let username = AuthenticationService.getLoggedInUsersName();
+    // let username = AuthenticationService.getLoggedInUsersName();
     console.log("delete");
     console.log(username + " " + id);
 
     // return axios.delete(`http://localhost:8083/${username}/todos/${id}`);
     TodoDataService.DeleteTodoService(username, id).then((response) => {
-      this.setState ({message: `Delete of Todo  ${id} is sucessful`}) ;
+      this.setState({ message: `Delete of Todo  ${id} is sucessful` });
+      this.refreshmentTodo();
     });
 
     //   DeleteTodoService(username, id)
+  }
+
+  updateTodo(id) {
+   this.props.navigate(`/todos/${id}`)
+
   }
   handleError(error) {
     //////////////  console.log(error.response);
@@ -82,6 +103,7 @@ export default class ListTodoCompnent extends Component {
                 <th>Description</th>
                 <th>Target Date</th>
                 <th>Is Completd?</th>
+                <th>Update?</th>
                 <th>Delete?</th>
               </tr>
             </thead>
@@ -110,6 +132,17 @@ export default class ListTodoCompnent extends Component {
                   <td>{todo.description}</td>
                   <td>{todo.targetDate.toString()}</td>
                   <td>{todo.done.toString()}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+
+                      
+                    onClick={() => this.updateTodo(todo.username, todo.id)}
+                   //  onClick={() => Navigate(`/todos/${todo.id}`)}
+                    >
+                      Update
+                    </button>
+                  </td>
                   <td>
                     <button
                       className="btn btn-warning"
