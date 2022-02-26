@@ -14,17 +14,35 @@ export default class TodoComponent extends Component {
   }
 
   render() {
+    // let description=this.state.description
+    // let targetDate= this.state.targetDate
+    // or use bellow    
+    
+    let {description,targetDate} = this.state
     return (
       <div>
         <h1>Todo</h1>
         <div className="container">
-          <Formik>
+          <Formik 
+          // first bracked for java script and secound one for object  
+          initialValues={{
+            description,
+            targetDate
+
+          }}   
+          >
             {(props) => (
               <Form>
                 <fieldset className="form-group">
-                  <label>description</label>
+                  <label>Description</label>
                   <Field className="form-control" type="text" name="description" />
                 </fieldset>
+
+                <fieldset className="form-group">
+                  <label>Target Date</label>
+                  <Field className="form-control" type="date" name="targetDate" />
+                </fieldset>
+                <button className="btn btn-sucess">Save</button>
               </Form>
             )
             }
