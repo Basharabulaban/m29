@@ -1,4 +1,4 @@
-import react, { Component } from "react";
+import React, { Component } from "react";
 import HelloWorldService from "../../api/todo/HelloWorldService.js";
 
 export default class WelcomeComponent extends Component {

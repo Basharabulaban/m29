@@ -1,4 +1,4 @@
-import react, { Component } from "react";
+import React, { Component } from "react";
 import AuthenticationService from './AuthenticationService.js';
 export default class LoginComponent extends Component {
   constructor(props) {

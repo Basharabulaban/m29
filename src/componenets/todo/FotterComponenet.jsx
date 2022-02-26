@@ -1,4 +1,6 @@
-import react, { Component } from "react";
+import React, { Component } from "react";
+
+
 export default  class FotterComponenet extends Component {
     render() {
       return (
