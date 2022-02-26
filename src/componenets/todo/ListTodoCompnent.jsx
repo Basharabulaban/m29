@@ -1,8 +1,9 @@
 import react, { Component } from "react";
 import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
+import { useNavigate } from "react-router-dom";
 
-import { Navigate } from 'react-router-dom'
+
 
 export default class ListTodoCompnent extends Component {
   constructor(props) {
@@ -73,9 +74,9 @@ export default class ListTodoCompnent extends Component {
     //   DeleteTodoService(username, id)
   }
 
-  updateTodo(id) {
-   this.props.navigate(`/todos/${id}`)
-
+  updateTodo( id) {
+ this.props.navigate(`/todos/${id}`)
+console.log ("updateTodo");
   }
   handleError(error) {
     //////////////  console.log(error.response);
@@ -137,10 +138,14 @@ export default class ListTodoCompnent extends Component {
                       className="btn btn-success"
 
                       
-                    onClick={() => this.updateTodo(todo.username, todo.id)}
-                   //  onClick={() => Navigate(`/todos/${todo.id}`)}
+                   onClick={() => this.updateTodo( todo.id)}
+                    //  onClick={() => {
+                    //  this.updateTodo( todo.id)
+                    //  .then(() =>useNavigate(`/todos/${todo.id}`))
+                    //  }
+                    // }
                     >
-                      Update
+                      Update  
                     </button>
                   </td>
                   <td>
