@@ -12,6 +12,7 @@ export default class TodoComponent extends Component {
       targetDate: moment(new Date()).format("YYYY-MM-DD"),
     };
     this.onSubmitfunction = this.onSubmitfunction.bind(this);
+    this.onValidatefunction = this.onValidatefunction.bind(this);
   }
 
   render() {
@@ -58,10 +59,18 @@ export default class TodoComponent extends Component {
               targetDate,
             }}
             onSubmit={this.onSubmitfunction}
+            validateOnBlur={false}
+            validateOnChange={false}
+            
             validate={this.onValidatefunction}
           >
             {(props) => (
               <Form>
+                <ErrorMessage
+                  name="description"
+                  component="div"
+                  className="alert alart-warning"
+                />
                 <fieldset className="form-group">
                   <label>Description</label>
                   <Field
@@ -96,6 +105,18 @@ export default class TodoComponent extends Component {
     console.log(values);
   }
   onValidatefunction(values) {
+    let error = {};
+    //  let error={description:" should have at least "}
+    if (!values.description) {
+      error.description = "Enter description";
+    } else if (values.description.length < 5) {
+      error.description = "Enter at least 5 characters in description";
+    }
+if (!moment(values.targetDate).isValid) {
+
+  error.targetDate = "Enter valid date";
+}
     console.log(values);
+    return error;
   }
 }
