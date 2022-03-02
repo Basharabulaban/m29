@@ -26,6 +26,12 @@ class TodoDataService {
 
       }
 
+      RetrieveSpecficTodos(name,id) {
+          console.log("RetrieveSpecficTodos ");
+          return axios.get(`http://localhost:8083/users/${name}/todos/${id}`);
+          
+        }
+
 }
 
 export default new TodoDataService();

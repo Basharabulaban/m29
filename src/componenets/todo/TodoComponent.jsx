@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import AuthenticationService from "./AuthenticationService";
+import TodoDataService from "../../api/todo/TodoDataService.js";
 import moment from "moment";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -14,7 +15,23 @@ export default class TodoComponent extends Component {
     this.onSubmitfunction = this.onSubmitfunction.bind(this);
     this.onValidatefunction = this.onValidatefunction.bind(this);
   }
+  componentDidMount() {
+    console.log("updateTodo");
+    let username = AuthenticationService.getLoggedInUsersName();
+    console.log(username);
+    // once the data is apear
+    TodoDataService.RetrieveSpecficTodos(username,this.props.params.id).then((response) => {
+      console.log(response.data);
+this.setState({
+description:response.data.description,
+targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
 
+// why still see the initialization todo object , because we need to put formik properties enableReinitializae
+})
+    //  this.setState({ todos: response.data });
+    });
+   
+  }
   render() {
     // desctructureing
     // let arraytest={a:1,b:2,c:3}
@@ -54,15 +71,12 @@ export default class TodoComponent extends Component {
             //////
 
             // the key and value is the same name
-            initialValues={{
-              description,
-              targetDate,
-            }}
+            initialValues={{ description,targetDate,}}
             onSubmit={this.onSubmitfunction}
             validateOnBlur={false}
             validateOnChange={false}
-            
             validate={this.onValidatefunction}
+            enableReinitialize={true}
           >
             {(props) => (
               <Form>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-import moment from 'moment' 
+// import moment from 'moment' 
 
 export default class ListTodoCompnent extends Component {
   constructor(props) {
@@ -75,7 +75,12 @@ export default class ListTodoCompnent extends Component {
   }
 
   updateTodo( id) {
+
+
  this.props.navigate(`/todos/${id}`)
+
+
+ 
 console.log ("updateTodo");
   }
   handleError(error) {
