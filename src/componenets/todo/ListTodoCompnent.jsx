@@ -3,20 +3,20 @@ import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
 // import { useNavigate } from "react-router-dom";
 
-import moment from 'moment' 
+import moment from "moment";
 
 export default class ListTodoCompnent extends Component {
   constructor(props) {
-
     super(props);
     this.state = {
       //id: this.props.params.id,
       todos: [],
       message: null,
     };
-    
+
     this.deleteTodo = this.deleteTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
+    this.AddTodo = this.AddTodo.bind(this);
   }
 
   shouldComponentUpdate(nextProps, NextState) {
@@ -71,26 +71,29 @@ export default class ListTodoCompnent extends Component {
       this.refreshmentTodo();
     });
 
-
-
     //   DeleteTodoService(username, id)
   }
 
-  updateTodo( id) {
+  updateTodo(id) {
+    this.props.navigate(`/todos/${id}`);
 
-
- this.props.navigate(`/todos/${id}`)
-
-console.log ("updateTodo");
-
+    console.log("updateTodo");
   }
+  AddTodo() {
+    this.props.navigate(`/todos/-1`);
+
+    console.log("AddTodo");
+    
+  }
+
+  
   handleError(error) {
     //////////////  console.log(error.response);
     this.setState({ todos: error.response.data.message });
   }
 
   handleSucessResponse(response) {
-    this.setState({ todos: response.data });
+    this.setState({todos: response.data});
   }
 
   //loaded for the first time and show on the brouser
@@ -101,7 +104,20 @@ console.log ("updateTodo");
     return (
       <div>
         <h1> List To Do </h1>
+
+        
         <div className="alert alert-success">{this.state.message}</div>
+        <div><button
+          className="btn btn-success"
+          onClick={() => this.AddTodo()}
+          //  onClick={() => {
+          //  this.updateTodo( todo.id)
+          //  .then(() =>useNavigate(`/todos/${todo.id}`))
+          //  }
+          // }
+        >
+          Add New Item
+        </button></div>
         <div className="container">
           <table>
             <thead>
@@ -141,16 +157,14 @@ console.log ("updateTodo");
                   <td>
                     <button
                       className="btn btn-success"
-
-                      
-                   onClick={() => this.updateTodo( todo.id)}
-                    //  onClick={() => {
-                    //  this.updateTodo( todo.id)
-                    //  .then(() =>useNavigate(`/todos/${todo.id}`))
-                    //  }
-                    // }
+                      onClick={() => this.updateTodo(todo.id)}
+                      //  onClick={() => {
+                      //  this.updateTodo( todo.id)
+                      //  .then(() =>useNavigate(`/todos/${todo.id}`))
+                      //  }
+                      // }
                     >
-                      Update  
+                      Update
                     </button>
                   </td>
                   <td>

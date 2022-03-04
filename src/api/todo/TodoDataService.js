@@ -32,7 +32,13 @@ class TodoDataService {
         console.log("UpdateTodos "+ id)
         console.log("UpdateTodos "+ todo)
   
-        return axios.put(`http://localhost:8083/users/${username}/todos/${id}`,todo);
+        if (id <=0 ) {
+          return axios.post(`http://localhost:8083/users/${username}/todos`,todo);
+      
+        }else if (id >0 ) {
+              return axios.put(`http://localhost:8083/users/${username}/todos/${id}`,todo);
+         
+        }
    
 
       }

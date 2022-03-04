@@ -20,6 +20,14 @@ export default class TodoComponent extends Component {
     let username = AuthenticationService.getLoggedInUsersName();
     console.log(username);
     // once the data is apear
+    if (this.props.params.id <=0 ) {
+      this.setState({
+        description: ""
+       
+        // why still see the initialization todo object , because we need to put formik properties enableReinitializae
+      });
+    }else if (this.props.params.id >0 ) {
+       ////////////////
     TodoDataService.RetrieveSpecficTodos(username, this.props.params.id).then(
       (response) => {
         console.log(response.data);
@@ -32,6 +40,11 @@ export default class TodoComponent extends Component {
         //  this.setState({ todos: response.data });
       }
     );
+////////////////////
+    }
+   
+
+
   }
   render() {
     // desctructureing
@@ -121,18 +134,31 @@ export default class TodoComponent extends Component {
 
     let username = AuthenticationService.getLoggedInUsersName();
     // this.state.username
-    TodoDataService.UpdateTodos(username, this.state.id, {
-      id: this.state.id,
-      description: values.description,
-      targetDate: values.targetDate,
-    }).then(() => {
-      this.props.navigate(`/todos`);
-      //this.setState({ message: `update of Todo { this.state.id}  is sucessful` });
-      console.log("update of Todo ${ this.state.id}  is sucessful");
-      // TodoDataService.RetrieveAllTodos(this.state.username).then((response) => {
-      //   this.setState({ todos: response.data });
-      // });
-    });
+    if (this.state.id <=0  ) {
+      console.log("save "+ this.state.id)
+      TodoDataService.UpdateTodos(username,this.state.id, {
+        description: values.description,
+        targetDate: values.targetDate,
+      }).then(() => {
+        this.props.navigate(`/todos`);
+      });
+
+    }else if (this.state.id >0 ) {
+      TodoDataService.UpdateTodos(username, this.state.id, {
+        id: this.state.id,
+        description: values.description,
+        targetDate: values.targetDate,
+      }).then(() => {
+        this.props.navigate(`/todos`);
+        //this.setState({ message: `update of Todo { this.state.id}  is sucessful` });
+        console.log("update of Todo ${ this.state.id}  is sucessful");
+        // TodoDataService.RetrieveAllTodos(this.state.username).then((response) => {
+        //   this.setState({ todos: response.data });
+        // });
+      });
+    }
+
+    
   }
   onValidatefunction(values) {
     let error = {};

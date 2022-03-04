@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-
+//import React, { Component } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function withNavigation(Component) {
