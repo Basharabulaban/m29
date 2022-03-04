@@ -20,17 +20,18 @@ export default class TodoComponent extends Component {
     let username = AuthenticationService.getLoggedInUsersName();
     console.log(username);
     // once the data is apear
-    TodoDataService.RetrieveSpecficTodos(username,this.props.params.id).then((response) => {
-      console.log(response.data);
-this.setState({
-description:response.data.description,
-targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
+    TodoDataService.RetrieveSpecficTodos(username, this.props.params.id).then(
+      (response) => {
+        console.log(response.data);
+        this.setState({
+          description: response.data.description,
+          targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
 
-// why still see the initialization todo object , because we need to put formik properties enableReinitializae
-})
-    //  this.setState({ todos: response.data });
-    });
-   
+          // why still see the initialization todo object , because we need to put formik properties enableReinitializae
+        });
+        //  this.setState({ todos: response.data });
+      }
+    );
   }
   render() {
     // desctructureing
@@ -71,7 +72,7 @@ targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
             //////
 
             // the key and value is the same name
-            initialValues={{ description,targetDate,}}
+            initialValues={{ description, targetDate }}
             onSubmit={this.onSubmitfunction}
             validateOnBlur={false}
             validateOnChange={false}
@@ -118,23 +119,20 @@ targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
   onSubmitfunction(values) {
     console.log(values);
 
-
-   let username = AuthenticationService.getLoggedInUsersName();
-  // this.state.username
-    TodoDataService.UpdateTodos(username, this.state.id,{
-      id:this.state.id,
-      description:values.description,
-      targetDate:values.targetDate
-    }
-      
-      
-      ).then((response) => {
-      this.setState({ message: `update of Todo { this.state.id}  is sucessful` });
+    let username = AuthenticationService.getLoggedInUsersName();
+    // this.state.username
+    TodoDataService.UpdateTodos(username, this.state.id, {
+      id: this.state.id,
+      description: values.description,
+      targetDate: values.targetDate,
+    }).then(() => {
+      this.props.navigate(`/todos`);
+      //this.setState({ message: `update of Todo { this.state.id}  is sucessful` });
+      console.log("update of Todo ${ this.state.id}  is sucessful");
       // TodoDataService.RetrieveAllTodos(this.state.username).then((response) => {
       //   this.setState({ todos: response.data });
       // });
     });
-    
   }
   onValidatefunction(values) {
     let error = {};
@@ -144,10 +142,9 @@ targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
     } else if (values.description.length < 5) {
       error.description = "Enter at least 5 characters in description";
     }
-if (!moment(values.targetDate).isValid) {
-
-  error.targetDate = "Enter valid date";
-}
+    if (!moment(values.targetDate).isValid) {
+      error.targetDate = "Enter valid date";
+    }
     console.log(values);
     console.log(error);
     return error;
