@@ -117,6 +117,24 @@ targetDate:moment(response.data.targetDate).format("YYYY-MM-DD")
 
   onSubmitfunction(values) {
     console.log(values);
+
+
+   let username = AuthenticationService.getLoggedInUsersName();
+  // this.state.username
+    TodoDataService.UpdateTodos(username, this.state.id,{
+      id:this.state.id,
+      description:values.description,
+      targetDate:values.targetDate
+    }
+      
+      
+      ).then((response) => {
+      this.setState({ message: `update of Todo { this.state.id}  is sucessful` });
+      // TodoDataService.RetrieveAllTodos(this.state.username).then((response) => {
+      //   this.setState({ todos: response.data });
+      // });
+    });
+    
   }
   onValidatefunction(values) {
     let error = {};
@@ -131,6 +149,7 @@ if (!moment(values.targetDate).isValid) {
   error.targetDate = "Enter valid date";
 }
     console.log(values);
+    console.log(error);
     return error;
   }
 }

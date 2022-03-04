@@ -22,7 +22,18 @@ class TodoDataService {
         console.log("on services delete "+ username)
         console.log("on services delete "+ id)
 
+        
         return axios.delete(`http://localhost:8083/users/${username}/todos/${id}`);
+      }
+
+      UpdateTodos(username, id ,todo) {
+      
+        console.log("UpdateTodos "+ username)
+        console.log("UpdateTodos "+ id)
+        console.log("UpdateTodos "+ todo)
+  
+        return axios.put(`http://localhost:8083/users/${username}/todos/${id}`,todo);
+   
 
       }
 
