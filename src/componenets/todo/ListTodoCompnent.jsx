@@ -3,7 +3,7 @@ import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "./AuthenticationService";
 // import { useNavigate } from "react-router-dom";
 
-// import moment from 'moment' 
+import moment from 'moment' 
 
 export default class ListTodoCompnent extends Component {
   constructor(props) {
@@ -71,6 +71,8 @@ export default class ListTodoCompnent extends Component {
       this.refreshmentTodo();
     });
 
+
+
     //   DeleteTodoService(username, id)
   }
 
@@ -79,9 +81,8 @@ export default class ListTodoCompnent extends Component {
 
  this.props.navigate(`/todos/${id}`)
 
-
- 
 console.log ("updateTodo");
+
   }
   handleError(error) {
     //////////////  console.log(error.response);
@@ -134,9 +135,8 @@ console.log ("updateTodo");
               {this.state.todos.map((todo) => (
                 <tr>
                   <td>{todo.id}</td>
-
                   <td>{todo.description}</td>
-                  <td>{todo.targetDate.toString()}</td>
+                  <td>{moment(todo.targetDate).format("YYYY-MM-DD")}</td>
                   <td>{todo.done.toString()}</td>
                   <td>
                     <button
