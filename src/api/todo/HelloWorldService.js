@@ -6,14 +6,15 @@ class HelloWorldService {
     let password = "basharpw"
     let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
     console.log("executed executeHelloWorldService ");
-    return axios.get("http://localhost:8083/hi",
+    return axios.get("http://localhost:8083/hi"
+    // ,
      
-    {
-      headers :{
-        Authorization: basicAuthentication
-      }
+    // {
+    //   headers :{
+    //     Authorization: basicAuthentication
+    //   }
      
-    }
+    // }
     
     );
    
@@ -25,14 +26,15 @@ class HelloWorldService {
     let password = "basharpw"
     let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
 
-    return axios.get("http://localhost:8083/hello-world-been",
+    return axios.get("http://localhost:8083/hello-world-been"
+    // ,
      
-    {
-      headers :{
-        Authorization: basicAuthentication
-      }
+    // {
+    //   headers :{
+    //     Authorization: basicAuthentication
+    //   }
      
-    }
+    // }
       
       
       );
@@ -44,13 +46,14 @@ class HelloWorldService {
     let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
     console.log(" executehelloworldpathvariable ");
     return axios.get(
-      `http://localhost:8083/hello-world-path-variable/${name}`, 
-      {
-        headers :{
-          Authorization: basicAuthentication
-        }
+      `http://localhost:8083/hello-world-path-variable/${name}`
+      // , 
+      // {
+      //   headers :{
+      //     Authorization: basicAuthentication
+      //   }
        
-      }
+      // }
     );
   }
 }
