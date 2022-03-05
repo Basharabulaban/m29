@@ -3,9 +3,12 @@ import axios from "axios";
 
 class AuthenticationService {
   registerSucessfulLogin(username, password) {
+
+    let basicAuthentication = "Basic " + window.btoa(`${username}:${password}`);
+
     console.log("Register sucessfully");
     sessionStorage.setItem("authenticatedUser", username);
-    this.setupAxiosInterceptors();
+    this.setupAxiosInterceptors(basicAuthentication);
 
   }
 
@@ -27,10 +30,8 @@ class AuthenticationService {
     if (user === null) return "";
     else return user;
   }
-  setupAxiosInterceptors() {
-    let username = "basharusr";
-    let password = "basharpw";
-    let basicAuthentication = "Basic " + window.btoa(`${username}:${password}`);
+  setupAxiosInterceptors(basicAuthentication) {
+    
 
     axios.interceptors.request.use((config) => {
       if (this.IsUserLoggedIn()) {
