@@ -3,7 +3,7 @@ import axios from "axios";
 
 class AuthenticationService {
   executeBasicAuthenticationService(username, password) {
-    let basicAuthentication = createBasicAuthToken(username, password)
+    let basicAuthentication = this.createBasicAuthToken(username, password)
     return axios.get("http://localhost:8083/basicauth", {
       headers: {
         Authorization: basicAuthentication,
@@ -16,7 +16,7 @@ class AuthenticationService {
   }
 
   registerSucessfulLogin(username, password) {
-    let basicAuthentication = createBasicAuthToken(username, password)
+    let basicAuthentication = this.createBasicAuthToken(username, password)
 
     console.log("Register sucessfully");
     sessionStorage.setItem("authenticatedUser", username);
