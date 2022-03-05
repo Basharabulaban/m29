@@ -23,26 +23,54 @@ export default class LoginComponent extends Component {
   loginClicked() {
 
     // call method and verify the sending user name and password is ok or not
-    
-    if (
-      this.state.username === "basharusr" &&
-      this.state.password === "basharpw"
-    ) 
-    
-    {
-      console.log("sucessfully");
-      AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password);
+    AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+    .then(
+      ()=>{
+        console.log("sucessfully")
+        AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password)
+        
+       this.props.navigate(`/welcome/${this.state.username}`)
+
+      }
       
-     this.props.navigate(`/welcome/${this.state.username}`);
 
       //   this.setState({ showSucesfulMessage: true });
       //   this.setState({ hasLoginFailed: false });
-    } else {
-      console.log("failed");
-      this.setState({ showSucesfulMessage: false });
-      this.setState({ hasLoginFailed: true });
-    }
+
+    )
+    .catch(
+      ()=>{
+        console.log("failed")
+        this.setState({ showSucesfulMessage: false })
+        this.setState({ hasLoginFailed: true })
+  
+      }
+     
+    )
+
+    // if (
+    //   this.state.username === "basharusr" &&
+    //   this.state.password === "basharpw"
+    // ) 
+    
+    // {
+    //   console.log("sucessfully");
+    //   AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password);
+      
+    //  this.props.navigate(`/welcome/${this.state.username}`);
+
+    //   //   this.setState({ showSucesfulMessage: true });
+    //   //   this.setState({ hasLoginFailed: false });
+    // } else {
+    //   console.log("failed");
+    //   this.setState({ showSucesfulMessage: false });
+    //   this.setState({ hasLoginFailed: true });
+    // }
+
+
     console.log(this.state);
+
+
   }
   render() {
     return (
