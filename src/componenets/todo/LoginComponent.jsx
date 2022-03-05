@@ -21,10 +21,15 @@ export default class LoginComponent extends Component {
     });
   }
   loginClicked() {
+
+    // call method and verify the sending user name and password is ok or not
+    
     if (
       this.state.username === "basharusr" &&
       this.state.password === "basharpw"
-    ) {
+    ) 
+    
+    {
       console.log("sucessfully");
       AuthenticationService.registerSucessfulLogin(this.state.username,this.state.password);
       
