@@ -1,7 +1,12 @@
+import axios from "axios";
+
+
 class AuthenticationService {
   registerSucessfulLogin(username, password) {
-    console.log(username);
+    console.log("Register sucessfully");
     sessionStorage.setItem("authenticatedUser", username);
+    this.setupAxiosInterceptors();
+
   }
 
   Loggedout() {
@@ -16,11 +21,24 @@ class AuthenticationService {
     else return true;
   }
 
-  getLoggedInUsersName(){
+  getLoggedInUsersName() {
     let user = sessionStorage.getItem("authenticatedUser");
 
-    if (user === null) return '';
-    else return user
+    if (user === null) return "";
+    else return user;
+  }
+  setupAxiosInterceptors() {
+    let username = "basharusr";
+    let password = "basharpw";
+    let basicAuthentication = "Basic " + window.btoa(`${username}:${password}`);
+
+    axios.interceptors.request.use((config) => {
+      if (this.IsUserLoggedIn()) {
+
+        config.headers.Authorization = basicAuthentication
+      }
+      return config
+    });
   }
 }
 

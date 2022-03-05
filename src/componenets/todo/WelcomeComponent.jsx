@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HelloWorldService from "../../api/todo/HelloWorldService.js";
-
+import { Link } from 'react-router-dom'
 export default class WelcomeComponent extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ export default class WelcomeComponent extends Component {
         <h1>Welcome!</h1>
         <div className="container">
           Welcome You {this.props.params.name} . You can manage your Todos{" "}
-          <a href="/todos"> Here </a>{" "}
+          <Link className="nav-link" to="/todos">Todos</Link>{" "}
         </div>
         <div className="container">
           click here to get customize welcome message {this.props.params.name} .
