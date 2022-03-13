@@ -39,8 +39,7 @@ class TodoDataService {
               return axios.put(`http://localhost:8083/users/${username}/todos/${id}`,todo);
          
         }
-   
-
+ 
       }
 
       RetrieveSpecficTodos(name,id) {
