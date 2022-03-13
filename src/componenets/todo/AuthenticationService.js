@@ -10,11 +10,39 @@ class AuthenticationService {
        // need to enable JWT Auth
       },
     });
+
+
+    
   }
+
+  executeJWTAuthenticationService(username, password) {
+    //  let basicAuthentication = this.createBasicAuthToken(username, password)
+      return axios.post("http://localhost:8083/authenticate", {
+       
+         username, password
+         // need to enable JWT Auth
+    
+      });
+  
+  
+      
+    }
+    createJWTToken(token){
+      return "Bearer " + token ;
+
+    }
 
   createBasicAuthToken(username, password) {
     return "Basic " + window.btoa(`${username}:${password}`);
   }
+  
+  registerSucessfulLoginforJWT(username, token) {
+     
+      console.log("Register sucessfully");
+      sessionStorage.setItem("authenticatedUser", username);
+
+      this.setupAxiosInterceptors(this.createJWTToken(token));
+    }
 
   registerSucessfulLogin(username, password) {
   //  let basicAuthentication = this.createBasicAuthToken(username, password)
