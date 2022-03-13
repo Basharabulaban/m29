@@ -7,6 +7,7 @@ class AuthenticationService {
     return axios.get("http://localhost:8083/basicauth", {
       headers: {
         Authorization: this.createBasicAuthToken(username, password),
+       // need to enable JWT Auth
       },
     });
   }
