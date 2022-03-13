@@ -25,10 +25,21 @@ class AuthenticationService {
          // need to enable JWT Auth
     
       });
-  
-  
-      
+       
     }
+
+    // to be  test it
+    RefreashJWTAuthenticationService(token) {
+      //  let basicAuthentication = this.createBasicAuthToken(username, password)
+        return axios.get(`${API_URL}/refresh`, {
+          headers: {
+            Authorization: this.createJWTToken(token),
+        
+          },
+          });
+      }
+
+  
     createJWTToken(token){
       return "Bearer " + token ;
 
