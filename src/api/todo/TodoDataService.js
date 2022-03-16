@@ -1,20 +1,22 @@
 import axios from "axios";
+import  {API_URL}  from "../../Constants";
+
 class TodoDataService {
 
     executeHelloWorldService() {
       /////  console.log("executed executeHelloWorldService ");
-        return axios.get("http://localhost:8083/hi");
+        return axios.get('$API_URL/hi');
         
       }
     
       executeHelloWorldbeanService() {
    ////   //  console.log(" executeHelloWorldbeanService ");
-        return axios.get("http://localhost:8083/hello-world-been");
+        return axios.get('$API_URL/hello-world-been');
         
       }
       RetrieveAllTodos(name) {
       //  console.log("executeRetrieveTodos ");
-        return axios.get(`http://localhost:8083/users/${name}/todos`);
+        return axios.get(`${API_URL}/users/${name}/todos`);
         
       }
       DeleteTodoService(username, id) {
@@ -23,7 +25,7 @@ class TodoDataService {
         console.log("on services delete "+ id)
 
         
-        return axios.delete(`http://localhost:8083/users/${username}/todos/${id}`);
+        return axios.delete(`${API_URL}/users/${username}/todos/${id}`);
       }
 
       UpdateTodos(username, id ,todo) {
@@ -33,10 +35,10 @@ class TodoDataService {
         console.log("UpdateTodos "+ todo)
   
         if (id <=0 ) {
-          return axios.post(`http://localhost:8083/users/${username}/todos`,todo);
+          return axios.post(`${API_URL}/users/${username}/todos`,todo);
       
         }else if (id >0 ) {
-              return axios.put(`http://localhost:8083/users/${username}/todos/${id}`,todo);
+              return axios.put(`${API_URL}/users/${username}/todos/${id}`,todo);
          
         }
  
@@ -44,7 +46,7 @@ class TodoDataService {
 
       RetrieveSpecficTodos(name,id) {
           console.log("RetrieveSpecficTodos ");
-          return axios.get(`http://localhost:8083/users/${name}/todos/${id}`);
+          return axios.get(`${API_URL}/users/${name}/todos/${id}`);
           
         }
 

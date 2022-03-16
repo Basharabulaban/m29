@@ -1,4 +1,5 @@
 import axios from "axios";
+import  {API_URL}  from "../../Constants";
 
 class HelloWorldService {
   executeHelloWorldService() {
@@ -6,7 +7,7 @@ class HelloWorldService {
     // let password = "basharpw"
     // let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
     console.log("executed executeHelloWorldService ");
-    return axios.get("http://localhost:8083/hi"
+    return axios.get('$API_URL/hi'
     // ,
      
     // {
@@ -26,7 +27,7 @@ class HelloWorldService {
     // let password = "basharpw"
     // let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
 
-    return axios.get("http://localhost:8083/hello-world-been"
+    return axios.get('$API_URL/hello-world-been'
     // ,
      
     // {
@@ -46,7 +47,7 @@ class HelloWorldService {
     // let basicAuthentication = 'Basic ' +  window.btoa(`${username}:${password}`);
     console.log(" executehelloworldpathvariable ");
     return axios.get(
-      `http://localhost:8083/hello-world-path-variable/${name}`
+      `${API_URL}/hello-world-path-variable/${name}`
       // , 
       // {
       //   headers :{
