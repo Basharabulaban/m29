@@ -135,8 +135,9 @@ export default class TodoComponent extends Component {
     let username = AuthenticationService.getLoggedInUsersName();
     // this.state.username
     if (this.state.id <=0  ) {
-      console.log("save "+ this.state.id)
-      TodoDataService.UpdateTodos(username,this.state.id, {
+    
+      TodoDataService.AddTodos(username, {
+        id: this.state.id,
         description: values.description,
         targetDate: values.targetDate,
       }).then(() => {
